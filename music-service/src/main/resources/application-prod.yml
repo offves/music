@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:mysql://db.offves.com:3306/netease_cloud_music?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  #  redis:
+  #    cluster:
+  #      nodes: "offves.com:7001,offves.com:7002,offves.com:7003,offves.com:7004,offves.com:7005,offves.com:7006"
+  #    lettuce:
+  #      pool:
+  #        max-active: 1500
+  #        max-wait: 5000
+  #        max-idle: 500
+  #        min-idle: 100
+  #    timeout: 60000
+  elasticsearch:
+    rest:
+      uris: offves.com:9200
+  cloud:
+    nacos:
+      discovery:
+        server-addr: offves.com:8848
+        group: prod
+        cluster-name: prod
+
+application:
+  server-log-directory: /opt/logs/${spring.application.name}

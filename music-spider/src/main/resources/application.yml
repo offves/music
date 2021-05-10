@@ -1,0 +1,77 @@
+server:
+  port: 8091
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: music-spider
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    stream:
+      bindings:
+        playlist-output:
+          destination: playlist-topic
+          content-type: application/json
+        playlist-input:
+          destination: playlist-topic
+          content-type: application/json
+          group: playlist
+          consumer:
+            enabled: true
+            concurrency: 1
+            max-attempts: 1
+            delay-level-when-next-consume: -1
+        song-output:
+          destination: song-topic
+          content-type: application/json
+        song-input:
+          destination: song-topic
+          content-type: application/json
+          group: song
+          consumer:
+            enabled: true
+            concurrency: 50
+            max-attempts: 1
+            delay-level-when-next-consume: -1
+        singer-output:
+          destination: singer-topic
+          content-type: application/json
+        singer-input:
+          destination: singer-topic
+          content-type: application/json
+          group: singer
+          consumer:
+            enabled: true
+            concurrency: 100
+            max-attempts: 1
+            delay-level-when-next-consume: -1
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: spring-cloud://localhost
+  provider:
+    timeout: 30000
+  consumer:
+    timeout: 30000
+    check: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    com.alibaba.cloud.dubbo: error

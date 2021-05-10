@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: offves.com:8848
+        group: dev
+        cluster-name: dev

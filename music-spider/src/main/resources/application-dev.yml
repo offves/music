@@ -1,0 +1,22 @@
+spring:
+  redis:
+    cluster:
+      nodes: "instance2.offves.com:7001,instance2.offves.com:7002,instance2.offves.com:7003,instance2.offves.com:7004,instance2.offves.com:7005,instance2.offves.com:7006"
+    lettuce:
+      pool:
+        max-active: 1500
+        max-wait: 5000
+        max-idle: 500
+        min-idle: 100
+    timeout: 60000
+    password: offves
+  cloud:
+    nacos:
+      discovery:
+        server-addr: offves.com:8848
+        group: dev
+        cluster-name: dev
+    stream:
+      rocketmq:
+        binder:
+          name-server: offves.com:9876

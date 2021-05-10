@@ -1,0 +1,56 @@
+server:
+  port: 8092
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: music-service
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: false
+        use_sql_comments: true
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: spring-cloud://localhost
+  provider:
+    timeout: 30000
+  consumer:
+    timeout: 30000
+    check: false
+  scan:
+    base-packages: com.offves.music.service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    com.alibaba.cloud.dubbo: error

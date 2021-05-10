@@ -1,0 +1,38 @@
+server:
+  port: 8090
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: music-site
+  main:
+    allow-bean-definition-overriding: true
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: spring-cloud://localhost
+  provider:
+    timeout: 30000
+  consumer:
+    timeout: 30000
+    check: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    com.alibaba.cloud.dubbo: error

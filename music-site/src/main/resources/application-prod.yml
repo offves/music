@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: offves.com:8848
+        group: prod
+        cluster-name: prod
+
+application:
+  server-log-directory: /opt/logs/${spring.application.name}
